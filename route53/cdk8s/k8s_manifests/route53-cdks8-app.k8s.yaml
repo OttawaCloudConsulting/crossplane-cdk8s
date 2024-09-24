@@ -1,0 +1,201 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Zone
+metadata:
+  annotations:
+    classification: unclassified
+    email: user.name@example.com
+    owner: user.name
+    solution: dns
+  name: route53-cdks8-app-zone-domain1.com-c8899f7a
+spec:
+  forProvider:
+    name: domain1.com
+    region: ca-central-1
+    tags:
+      classification: unclassified
+      deployment: crossplane
+      email: user.name@example.com
+      owner: user.name
+      solution: dns
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain1-com-mx-5p8muh-c8611427
+spec:
+  forProvider:
+    name: domain1.com.
+    records:
+      - 0 mail.domain1.com.
+    region: ca-central-1
+    ttl: 3600
+    type: MX
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain1.com-c8899f7a
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain1-com-txt-i3j2kb-c8e55c6c
+spec:
+  forProvider:
+    name: domain1.com.
+    records:
+      - '"v=spf1 include:spf.protection.outlook.com -all"'
+    region: ca-central-1
+    ttl: 300
+    type: TXT
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain1.com-c8899f7a
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain1-com-cname-nevzhg-c822102b
+spec:
+  forProvider:
+    name: www.domain1.com.
+    records:
+      - domain1.com.
+    region: ca-central-1
+    ttl: 300
+    type: CNAME
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain1.com-c8899f7a
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain1-com-cname-7qdqbw-c8aa69ff
+spec:
+  forProvider:
+    name: autodiscover.domain1.com.
+    records:
+      - autodiscover.outlook.com.
+    region: ca-central-1
+    ttl: 3600
+    type: CNAME
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain1.com-c8899f7a
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Zone
+metadata:
+  annotations:
+    classification: unclassified
+    email: user.name@example.com
+    owner: user.name
+    solution: dns
+  name: route53-cdks8-app-zone-domain2.net-c879f715
+spec:
+  forProvider:
+    name: domain2.net
+    region: ca-central-1
+    tags:
+      classification: unclassified
+      deployment: crossplane
+      email: user.name@example.com
+      owner: user.name
+      solution: dns
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain2-net-a-luwkne-c8c40539
+spec:
+  forProvider:
+    name: domain2.net.
+    records:
+      - 123.123.123.123
+    region: ca-central-1
+    ttl: 300
+    type: A
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain2.net-c879f715
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain2-net-cname-pjdcot-c82be813
+spec:
+  forProvider:
+    name: www.domain2.net.
+    records:
+      - domain2.net.
+    region: ca-central-1
+    ttl: 300
+    type: CNAME
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain2.net-c879f715
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Zone
+metadata:
+  annotations:
+    classification: unclassified
+    email: user.name@example.com
+    owner: user.name
+    solution: dns
+  name: route53-cdks8-app-zone-domain3.org-c84476dc
+spec:
+  forProvider:
+    name: domain3.org
+    region: ca-central-1
+    tags:
+      classification: unclassified
+      deployment: crossplane
+      email: user.name@example.com
+      owner: user.name
+      solution: dns
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain3-org-mx-oj936b-c84f885e
+spec:
+  forProvider:
+    name: domain3.org.
+    records:
+      - 10 mail.domain3.org.
+    region: ca-central-1
+    ttl: 600
+    type: MX
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain3.org-c84476dc
+  providerConfigRef:
+    name: my-provider-config
+---
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: route53-cdks8-app-recordset-domain3-org-txt-sdjhkv-c8daff40
+spec:
+  forProvider:
+    name: _dmarc.domain3.org.
+    records:
+      - '"v=DMARC1; p=none"'
+    region: ca-central-1
+    ttl: 3600
+    type: TXT
+    zoneIdRef:
+      name: route53-cdks8-app-zone-domain3.org-c84476dc
+  providerConfigRef:
+    name: my-provider-config
