@@ -1,0 +1,7 @@
+language: typescript
+app: npx ts-node bin/route53-infra-app.ts
+imports:
+  - k8s
+  - crds/crossplane.yaml
+  - https://raw.githubusercontent.com/upbound/provider-aws/main/package/crds/route53.aws.upbound.io_records.yaml
+output: "../k8s_manifests"

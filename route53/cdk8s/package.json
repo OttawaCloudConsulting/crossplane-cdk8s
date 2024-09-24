@@ -1,0 +1,62 @@
+{
+  "name": "route53-cdk8s-crossplane",
+  "version": "1.0.0",
+  "bin": {
+    "my-dns-cdk-infra": "bin/route53-infra-app.ts"
+  },
+  "description": "AWS CDK8s to provide Crossplane Manifests for DNS and Route53 related services",
+  "private": true,
+  "preferGlobal": true,
+  "keywords": [
+    "cdk8s",
+    "Kubernetes",
+    "IaC",
+    "infrastructure",
+    "AWS",
+    "Crossplane",
+    "Route53",
+    "DNS"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "readme": "README.md",
+  "scripts": {
+    "audit": "npm audit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "import": "cdk8s import",
+    "synth": "cdk8s synth",
+    "compile": "tsc --build",
+    "watch": "tsc --build -w",
+    "build": "npm run compile && npm run synth",
+    "upgrade": "npm i cdk8s@latest cdk8s-cli@latest",
+    "upgrade:next": "npm i cdk8s@next cdk8s-cli@next"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "configs/",
+    "crds/",
+    "cdk8s.yaml",
+    "get-crds.sh",
+    "package.json",
+    "tsconfig.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "cdk8s": "^2.69.0",
+    "cdk8s-plus-28": "^2.5.6",
+    "constructs": "^10.3.0",
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^14",
+    "cdk8s-cli": "^2.198.214",
+    "ts-node": "^10",
+    "fs": "^0.0.1-security",
+    "typescript": "^4.9.5"
+  }
+}
