@@ -1,0 +1,51 @@
+domain1.com:
+  hosted_zone_name: domain1.com
+  record_sets:
+    - name: domain1.com.
+      type: MX
+      ttl: 3600
+      values:
+        - "0 mail.domain1.com."
+    - name: domain1.com.
+      type: TXT
+      ttl: 300
+      values:
+        - '"v=spf1 include:spf.protection.outlook.com -all"'
+    - name: www.domain1.com.
+      type: CNAME
+      ttl: 300
+      values:
+        - "domain1.com."
+    - name: autodiscover.domain1.com.
+      type: CNAME
+      ttl: 3600
+      values:
+        - "autodiscover.outlook.com."
+
+domain2.net:
+  hosted_zone_name: domain2.net
+  record_sets:
+    - name: domain2.net.
+      type: A
+      ttl: 300
+      values:
+        - "123.123.123.123"
+    - name: www.domain2.net.
+      type: CNAME
+      ttl: 300
+      values:
+        - "domain2.net."
+
+domain3.org:
+  hosted_zone_name: domain3.org
+  record_sets:
+    - name: domain3.org.
+      type: MX
+      ttl: 600
+      values:
+        - "10 mail.domain3.org."
+    - name: _dmarc.domain3.org.
+      type: TXT
+      ttl: 3600
+      values:
+        - '"v=DMARC1; p=none"'
