@@ -76,6 +76,14 @@ kubectl-edit-*.yaml
 #*.yml
 #*.json
 
+# Typescrip
+*.d.ts
+*.js
+!jest.config.js
+node_modules
+dist/
+__snapshots__/
+
 # Crossplane
 crossplane-setup/
 .lockfile
