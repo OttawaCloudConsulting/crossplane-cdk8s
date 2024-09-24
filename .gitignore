@@ -1,0 +1,104 @@
+# Developers can store local stuff in dirs named __something
+__*
+
+# OSX leaves these everywhere on SMB shares
+._*
+
+# OSX trash
+.DS_Store
+
+# General
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*.lock
+*.gz
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.eggs/
+*.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+.mypy_cache/
+.pyre/
+.pytype/
+Pipfile.lock
+poetry.lock
+
+# Bash
+*.sh~
+*.bash_history
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+terraform.tfvars
+terraform.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+.terraform.lock.hcl
+
+# AWS CDK
+cdk.out/
+cdk.context.json
+.env
+
+# Kubernetes
+*.kube/
+*.kubeconfig
+kubectl-edit-*.yaml
+
+# YAML and JSON files
+# Ignore YAML and JSON files that might contain sensitive information or are generated
+# Uncomment the following lines if you use sensitive data in these formats.
+#*.yaml
+#*.yml
+#*.json
+
+# Crossplane
+crossplane-setup/
+.lockfile
+
+# VSCode
+.vscode/
+.code-workspace
+
+# JetBrains IDEs (IntelliJ, PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+out/
+target/
+
+# System Files
+*.swp
+*.swo
+*.swn
+
+# Temporary Files
+*.tmp
+*.temp
+
+# MacOS
+.DS_Store
