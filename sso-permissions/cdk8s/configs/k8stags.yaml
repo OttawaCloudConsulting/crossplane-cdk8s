@@ -1,0 +1,9 @@
+tags:
+  - key: owner
+    value: user.name
+  - key: email
+    value: user.name@example.com
+  - key: solution
+    value: dns
+  - key: classification
+    value: unclassified

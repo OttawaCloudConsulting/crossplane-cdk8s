@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "config:Describe*",
+          "config:Get*",
+          "securityhub:Describe*",
+          "securityhub:Get*",
+          "iam:List*",
+          "iam:Get*"
+        ],
+        "Resource": [
+          "arn:aws:config:{{ Region }}:{{ AccountID }}:config-rule/*",
+          "arn:aws:securityhub:{{ Region }}:{{ AccountID }}:securityhub/*",
+          "arn:aws:iam::{{ AccountID }}:role/{{ RoleName }}",
+          "arn:aws:iam::{{ AccountID }}:policy/{{ PolicyName }}"
+        ]
+      }
+    ]
+  }
+  

@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "vpc:*",
+          "ec2:*",
+          "elasticloadbalancing:*",
+          "route53:*",
+          "directconnect:*",
+          "autoscaling:*"
+        ],
+        "Resource": [
+          "arn:aws:vpc:{{ Region }}:{{ AccountID }}:vpc/{{ VPCID }}",
+          "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/*",
+          "arn:aws:elasticloadbalancing:{{ Region }}:{{ AccountID }}:loadbalancer/*",
+          "arn:aws:route53:::hostedzone/{{ HostedZoneID }}",
+          "arn:aws:directconnect:{{ Region }}:{{ AccountID }}:dxcon/{{ ConnectionID }}"
+        ]
+      }
+    ]
+  }
+  
