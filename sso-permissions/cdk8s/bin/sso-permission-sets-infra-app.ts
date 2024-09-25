@@ -9,7 +9,7 @@ const app = new App();
 const accountsConfig = parseYamlConfig('./configs/accounts.yaml');
 const awsTagsConfig = parseYamlConfig('./configs/awstags.yaml');
 const groupsCOnfig = parseYamlConfig('./configs/groups.yaml');
-const kl8sTagsConfig = parseYamlConfig('./configs/k8stags.yamll');
+const kl8sTagsConfig = parseYamlConfig('./configs/k8stags.yaml');
 const ssoConfigData = parseYamlConfig('./configs/sso-configs.yaml');
 const userConfigs = parseYamlConfig('./configs/users.yaml');
 
@@ -18,7 +18,7 @@ const region = 'ca-central-1';
 const providerConfigName = 'my-provider-config';
 
 // Create SSO Permissions Management Manifest with parsed configurations
-new SsoPermissionsStack(app, 'route53-cdks8-app', {
+new SsoPermissionsStack(app, 'sso-permission-sets-cdks8-app', {
   accountsConfig,
   awsTagsConfig,
   groupsCOnfig,
