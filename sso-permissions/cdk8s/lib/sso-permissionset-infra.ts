@@ -1,7 +1,10 @@
 import { Construct } from 'constructs';
 import { Chart } from 'cdk8s';
 import { parseYamlConfig } from './yaml-parser';
-import { AWSTagsYaml, K8sTagsYaml } from './tags-parser';
+import { 
+  AWSTagsYaml, 
+  // K8sTagsYaml 
+} from './tags-parser';
 import { User, Group, GroupMembership } from '../imports/identitystore.aws.upbound.io';
 import { Policy } from '../imports/iam.aws.upbound.io';
 import { PermissionSet, ManagedPolicyAttachment, CustomerManagedPolicyAttachment, PermissionSetInlinePolicy, AccountAssignment, PermissionsBoundaryAttachment } from '../imports/ssoadmin.aws.upbound.io';
@@ -21,10 +24,19 @@ export class SsoPermissionsStack extends Chart {
   constructor(scope: Construct, id: string, props: SsoPermissionsStackProps) {
     super(scope, id);
 
-    const { accountsConfig, awsTagsConfig, groupsCOnfig, kl8sTagsConfig, ssoConfigData, userConfigs, region, providerConfigName } = props;
+    const { 
+      accountsConfig, 
+      // awsTagsConfig, 
+      groupsCOnfig, 
+      // kl8sTagsConfig, 
+      ssoConfigData, 
+      userConfigs, 
+      region, 
+      providerConfigName 
+    } = props;
 
     const awsTags = new AWSTagsYaml('./configs/awstags.yaml');
-    const k8sTags = new K8sTagsYaml('./configs/k8stags.yaml');
+    // const k8sTags = new K8sTagsYaml('./configs/k8stags.yaml');
 
     // Create users
     for (const user of userConfigs.users) {
@@ -32,15 +44,17 @@ export class SsoPermissionsStack extends Chart {
         spec: {
           forProvider: {
             displayName: user.DisplayName,
-            name: {
-              familyName: user.Name.FamilyName,
+            name: [{
               givenName: user.Name.GivenName,
-            },
+              familyName: user.Name.FamilyName,
+            }],
             title: user.Title,
-            email: user.Email,
+            emails: [user.Email],
             timezone: user.TimeZone,
-            phoneNumber: user.PhoneNumber,
+            phoneNumbers: [user.PhoneNumber],
             preferredLanguage: user.PreferredLanguage,
+            identityStoreId: ssoConfigData.IdentityStoreId,
+            region: region,
           },
           providerConfigRef: {
             name: providerConfigName,
@@ -177,8 +191,7 @@ export class SsoPermissionsStack extends Chart {
           spec: {
             forProvider: {
               permissionSetArn: permissionSet.metadata.name,
-              // customerManagedPolicyReference: { name: customerPolicy },
-              customerManagedPolicyReference: { name: customerPolicy },
+              customerManagedPolicyReference: [{ name: customerPolicy }],
               instanceArn: ssoConfigData.SSOAdminInstanceARN,
               region: region,
             },
