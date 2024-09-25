@@ -4,6 +4,7 @@
 provider_package=(
   "identitystore.aws.upbound.io"
   "ssoadmin.aws.upbound.io"
+  "iam.aws.upbound.io"
   )
 
 # Create the directory if it doesn't exist and initialize the output YAML file.
