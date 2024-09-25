@@ -1,0 +1,60 @@
+Accounts:
+  - AccountId: "111111111111"
+    AccountName: "MyAccount1"
+    AccountEmail: root1.email1@example.com
+    SSOGroups:
+      - SRE_Standard
+      - SRE_Elevated
+      - Infra_Network_Standard
+      - Infra_Network_Elevated
+      - Sec_Com_Gov_Standard
+      - Sec_Com_Gov_Elevated
+      - Arch_DR_Standard
+      - Arch_DR_Elevated
+      - Cost_Support_Standard
+      - Cost_Support_Elevated
+
+  - AccountId: "222222222222"
+    AccountName: "MyAccount2"
+    AccountEmail: root2.email2@example.com
+    SSOGroups:
+      - SRE_Standard
+      - SRE_Elevated
+      - Infra_Network_Standard
+      - Infra_Network_Elevated
+      - Sec_Com_Gov_Standard
+      - Sec_Com_Gov_Elevated
+      - Arch_DR_Standard
+      - Arch_DR_Elevated
+      - Cost_Support_Standard
+      - Cost_Support_Elevated
+
+  - AccountId: "333333333333"
+    AccountName: "MyAccount3"
+    AccountEmail: root3.email3@example.com
+    SSOGroups:
+      - SRE_Standard
+      - SRE_Elevated
+      - Infra_Network_Standard
+      - Infra_Network_Elevated
+      - Sec_Com_Gov_Standard
+      - Sec_Com_Gov_Elevated
+      - Arch_DR_Standard
+      - Arch_DR_Elevated
+      - Cost_Support_Standard
+      - Cost_Support_Elevated
+
+  - AccountId: "4444444444444"
+    AccountName: "MyAccount4"
+    AccountEmail: root4.email4@example.com
+    SSOGroups:
+      - SRE_Standard
+      - SRE_Elevated
+      - Infra_Network_Standard
+      - Infra_Network_Elevated
+      - Sec_Com_Gov_Standard
+      - Sec_Com_Gov_Elevated
+      - Arch_DR_Standard
+      - Arch_DR_Elevated
+      - Cost_Support_Standard
+      - Cost_Support_Elevated
