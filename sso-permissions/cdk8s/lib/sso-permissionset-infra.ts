@@ -68,7 +68,6 @@ export class SsoPermissionsStack extends Chart {
     const boundaryPolicyFiles = fs.readdirSync(boundaryPoliciesDir);
 
     for (const boundaryPolicyFile of boundaryPolicyFiles) {
-      console.log(`File: ${boundaryPolicyFile}`);
       const policyName = boundaryPolicyFile.replace('.json', '');
       new Policy(this, policyName, {
         spec: {
@@ -89,11 +88,9 @@ export class SsoPermissionsStack extends Chart {
     // );
     const customPoliciesDir = './configs/custom-policies/';
     const customPolicyFiles = fs.readdirSync(customPoliciesDir);
-    console.log(customPolicyFiles);
 
     for (const policyFile of customPolicyFiles) {
       const policyName = policyFile.split('/').pop()?.replace('.json', '');
-      console.log(`File: ${customPoliciesDir}${policyFile}`);
       new Policy(this, `${policyName}`, {
         spec: {
           forProvider: {
