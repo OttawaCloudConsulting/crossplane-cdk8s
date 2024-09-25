@@ -1,27 +1,26 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-          "cloudformation:*",
-          "codepipeline:*",
-          "codebuild:*",
-          "iam:*",
-          "ec2:*",
-          "s3:*",
-          "logs:*",
-          "cloudwatch:*"
-        ],
-        "Resource": [
-          "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/{{ StackName }}/*",
-          "arn:aws:codepipeline:{{ Region }}:{{ AccountID }}:pipeline/*",
-          "arn:aws:codebuild:{{ Region }}:{{ AccountID }}:project/{{ ProjectName }}",
-          "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/*",
-          "arn:aws:s3:::{{ S3BucketName }}/*",
-          "arn:aws:logs:{{ Region }}:{{ AccountID }}:log-group:{{ LogGroupName }}:*"
-        ]
-      }
-    ]
-  }
-  
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:*",
+        "codepipeline:*",
+        "codebuild:*",
+        "iam:*",
+        "ec2:*",
+        "s3:*",
+        "logs:*",
+        "cloudwatch:*"
+      ],
+      "Resource": [
+        "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/{{ StackName }}/*",
+        "arn:aws:codepipeline:{{ Region }}:{{ AccountID }}:pipeline/*",
+        "arn:aws:codebuild:{{ Region }}:{{ AccountID }}:project/{{ ProjectName }}",
+        "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/*",
+        "arn:aws:s3:::{{ S3BucketName }}/*",
+        "arn:aws:logs:{{ Region }}:{{ AccountID }}:log-group:{{ LogGroupName }}:*"
+      ]
+    }
+  ]
+}

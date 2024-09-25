@@ -1,27 +1,26 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-          "backup:*",
-          "cloudformation:*",
-          "dms:*",
-          "ec2:*",
-          "s3:*",
-          "rds:*",
-          "elasticache:*"
-        ],
-        "Resource": [
-          "arn:aws:backup:{{ Region }}:{{ AccountID }}:backup-vault/*",
-          "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/*/*",
-          "arn:aws:dms:{{ Region }}:{{ AccountID }}:replication-task/*",
-          "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/*",
-          "arn:aws:s3:::{{ S3BucketName }}/*",
-          "arn:aws:rds:{{ Region }}:{{ AccountID }}:db/*",
-          "arn:aws:elasticache:{{ Region }}:{{ AccountID }}:cache-cluster/*"
-        ]
-      }
-    ]
-  }
-  
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "backup:*",
+        "cloudformation:*",
+        "dms:*",
+        "ec2:*",
+        "s3:*",
+        "rds:*",
+        "elasticache:*"
+      ],
+      "Resource": [
+        "arn:aws:backup:{{ Region }}:{{ AccountID }}:backup-vault/*",
+        "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/*/*",
+        "arn:aws:dms:{{ Region }}:{{ AccountID }}:replication-task/*",
+        "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/*",
+        "arn:aws:s3:::{{ S3BucketName }}/*",
+        "arn:aws:rds:{{ Region }}:{{ AccountID }}:db/*",
+        "arn:aws:elasticache:{{ Region }}:{{ AccountID }}:cache-cluster/*"
+      ]
+    }
+  ]
+}
