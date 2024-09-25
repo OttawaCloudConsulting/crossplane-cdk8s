@@ -1,0 +1,50 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowAdminActions",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*",
+        "s3:*",
+        "cloudwatch:*",
+        "logs:*",
+        "iam:*",
+        "sts:AssumeRole",
+        "cloudformation:*",
+        "lambda:*",
+        "rds:*",
+        "elasticache:*",
+        "dynamodb:*",
+        "kms:*",
+        "config:*",
+        "organizations:Describe*",
+        "codepipeline:*",
+        "codebuild:*",
+        "autoscaling:*",
+        "elasticloadbalancing:*",
+        "route53:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenyCriticalResourceDeletion",
+      "Effect": "Deny",
+      "Action": [
+        "iam:DeleteUser",
+        "iam:DeleteRole",
+        "iam:DeletePolicy",
+        "kms:ScheduleKeyDeletion",
+        "ec2:DeleteVpc",
+        "ec2:TerminateInstances",
+        "s3:DeleteBucket",
+        "lambda:DeleteFunction",
+        "cloudformation:DeleteStack",
+        "rds:DeleteDBInstance",
+        "dynamodb:DeleteTable",
+        "elasticache:DeleteCacheCluster"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
