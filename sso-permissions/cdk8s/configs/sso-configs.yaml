@@ -1,1 +1,1 @@
-SSOAdminInstanceARN: arn:aws:eks:us-west-2:123456789012:cluster/sso-admin-cluster
+SSOAdminInstanceARN: arn:aws:sso:::instance/ssoins-xxxxxxxxxxxxxxx
