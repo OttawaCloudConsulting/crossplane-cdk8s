@@ -1,4 +1,5 @@
 language: typescript
-app: npx ts-node main.ts
+app: npx ts-node bin/sso-permission-sets-infra-app.ts
 imports:
   - k8s
+  - crds/crossplane.yaml
