@@ -1,6 +1,6 @@
 import { Construct } from 'constructs';
+import * as fs from 'fs';
 import { Chart } from 'cdk8s';
-import { parseYamlConfig } from './yaml-parser';
 import { 
   AWSTagsYaml, 
   // K8sTagsYaml 
@@ -63,6 +63,50 @@ export class SsoPermissionsStack extends Chart {
       });
     }
 
+    // Iterate over each file in the boundary-policies directory and create a policy for each
+    const boundaryPoliciesDir = '../configs/boundary-policies/';
+    const boundaryPolicyFiles = fs.readdirSync(boundaryPoliciesDir);
+
+    for (const boundaryPolicyFile of boundaryPolicyFiles) {
+      console.log(`File: ${boundaryPolicyFile}`);
+      const policyName = boundaryPolicyFile.replace('.json', '');
+      new Policy(this, policyName, {
+        spec: {
+          forProvider: {
+            policy: JSON.parse(fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8')),
+          },
+          providerConfigRef: {
+            name: providerConfigName,
+          },
+        },
+      });
+    }
+
+    // Create IAM Policies for each custom  policy
+    // const policiesDir = './configs/';
+    // const customPolicyFiles = group.CustomerManagedPolicies.map(
+    //   (policy: string) => `${policiesDir}custom-policies/${policy}.json`
+    // );
+    const customPoliciesDir = './configs/custom-policies/';
+    const customPolicyFiles = fs.readdirSync(customPoliciesDir);
+    console.log(customPolicyFiles);
+
+    for (const policyFile of customPolicyFiles) {
+      const policyName = policyFile.split('/').pop()?.replace('.json', '');
+      console.log(`File: ${customPoliciesDir}${policyFile}`);
+      new Policy(this, `${policyName}`, {
+        spec: {
+          forProvider: {
+            policy: JSON.parse(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
+            // policy: JSON.parse(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
+          },
+          providerConfigRef: {
+            name: providerConfigName,
+          },
+        },
+      });
+    }
+
     // Create groups
     for (const group of groupsCOnfig.Groups) {
       const groupResource = new Group(this, `Group-${group.Name}`, {
@@ -96,39 +140,7 @@ export class SsoPermissionsStack extends Chart {
         });
       }
 
-      // Create IAM Policies for each custom and boundary policy
-      const policiesDir = './configs/';
-      const boundaryPolicyFile = `${policiesDir}boundary-policies/${group.BoundaryPolicy}.json`;
-      const customPolicyFiles = group.CustomerManagedPolicies.map(
-        (policy: string) => `${policiesDir}custom-policies/${policy}.json`
-      );
 
-      // Create Boundary Policy
-      new Policy(this, `${group.BoundaryPolicy}`, {
-        spec: {
-          forProvider: {
-            policy: parseYamlConfig(boundaryPolicyFile),
-          },
-          providerConfigRef: {
-            name: providerConfigName,
-          },
-        },
-      });
-
-      // Create Custom Policies
-      for (const policyFile of customPolicyFiles) {
-        const policyName = policyFile.split('/').pop()?.replace('.json', '');
-        new Policy(this, `${policyName}`, {
-          spec: {
-            forProvider: {
-              policy: parseYamlConfig(policyFile),
-            },
-            providerConfigRef: {
-              name: providerConfigName,
-            },
-          },
-        });
-      }
 
       // Create Permission Set
       const permissionSet = new PermissionSet(this, `PermissionSet-${group.Name}`, {
