@@ -58,6 +58,7 @@ export class SsoPermissionsStack extends Chart {
         },
         spec: {
           forProvider: {
+            userName: user.UserName,
             displayName: user.DisplayName,
             name: [{
               givenName: user.Name.GivenName,
@@ -92,12 +93,12 @@ export class SsoPermissionsStack extends Chart {
       const policyName = boundaryPolicyFile.replace('.json', '');
       new Policy(this, policyName, {
         metadata: {
-          name: `${policyName}`,
+          name: `${policyName}`.toLowerCase(),
           annotations: k8sTags,
         },
         spec: {
           forProvider: {
-            policy: JSON.parse(fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8')),
+            policy: JSON.stringify(fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8')),
             tags: awsTags,
           },
           providerConfigRef: {
@@ -114,7 +115,7 @@ export class SsoPermissionsStack extends Chart {
     for (const policyFile of customPolicyFiles) {
       const awsTags = { ...defaultTags };
       awsTags['policytype'] = 'ssocustom';
-      const policyName = policyFile.split('/').pop()?.replace('.json', '');
+      const policyName = policyFile.split('/').pop()?.replace('.json', '').toLowerCase()!;
       new Policy(this, `${policyName}`, {
         metadata: {
           name: `${policyName}`,
@@ -122,7 +123,7 @@ export class SsoPermissionsStack extends Chart {
         },
         spec: {
           forProvider: {
-            policy: JSON.parse(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
+            policy: JSON.stringify(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
             tags: awsTags,
           },
           providerConfigRef: {
@@ -136,7 +137,7 @@ export class SsoPermissionsStack extends Chart {
     for (const group of groupsCOnfig.Groups) {
       const groupResource = new Group(this, `Group-${group.Name}`, {
         metadata: {
-          name: group.Name,
+          name: group.Name.toLowerCase(),
           annotations: k8sTags,
         },
         spec: {
@@ -180,14 +181,14 @@ export class SsoPermissionsStack extends Chart {
       const awsTags = { ...defaultTags };
       const permissionSet = new PermissionSet(this, `PermissionSet-${group.Name}`, {
         metadata: {
-          name: `${group.Name}`,
+          name: `${group.Name}`.toLowerCase(),
           annotations: k8sTags,
         },
         spec: {
           forProvider: {
-            name: group.Name,
+            name: group.Name.toLowerCase(),
             instanceArn: ssoConfigData.SSOAdminInstanceARN,
-            sessionDuration: group.SessionDuration,
+            sessionDuration: String(group.SessionDuration),
             region: region,
             tags: awsTags,
           },
@@ -250,7 +251,7 @@ export class SsoPermissionsStack extends Chart {
                 name: permissionSet.metadata.name!,
               },
               customerManagedPolicyReference: [{ 
-                name: customerPolicy 
+                name: customerPolicy.toLowerCase() 
               }],
               instanceArn: ssoConfigData.SSOAdminInstanceARN,
               region: region,
@@ -276,7 +277,7 @@ export class SsoPermissionsStack extends Chart {
               {
                 customerManagedPolicyReference: [
                   {
-                    name: group.BoundaryPolicy
+                    name: group.BoundaryPolicy.toLowerCase(),
                   }
                 ]
               }
