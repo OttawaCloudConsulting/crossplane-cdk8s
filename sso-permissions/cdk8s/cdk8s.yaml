@@ -3,3 +3,4 @@ app: npx ts-node bin/sso-permission-sets-infra-app.ts
 imports:
   - k8s
   - crds/crossplane.yaml
+output: "k8s_manifests"
