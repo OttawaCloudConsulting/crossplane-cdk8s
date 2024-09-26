@@ -35,12 +35,23 @@ export class SsoPermissionsStack extends Chart {
       providerConfigName 
     } = props;
 
+    console.log('Identity Store ID:', ssoConfigData.SSOAdminInstanceARN);
+
     const awsTags = new AWSTagsYaml('./configs/awstags.yaml');
-    // const k8sTags = new K8sTagsYaml('./configs/k8stags.yaml');
+    // const defaultTags = awsTags.tags.reduce(
+    //   (acc: { [key: string]: string }, tag: { key: string; value: string }) => {
+    //     acc[tag.key] = tag.value;
+    //     return acc;
+    //   },
+    //   {}
+    // );
 
     // Create users
     for (const user of userConfigs.users) {
       new User(this, `User-${user.UserName}`, {
+        metadata: {
+          name: `${user.UserName}`,
+        },
         spec: {
           forProvider: {
             displayName: user.DisplayName,
@@ -49,11 +60,15 @@ export class SsoPermissionsStack extends Chart {
               familyName: user.Name.FamilyName,
             }],
             title: user.Title,
-            emails: [user.Email],
+            emails: [{
+              value: user.Email,
+            }],
             timezone: user.TimeZone,
-            phoneNumbers: [user.PhoneNumber],
+            phoneNumbers: [{
+              value: user.PhoneNumber,
+            }],
             preferredLanguage: user.PreferredLanguage,
-            identityStoreId: ssoConfigData.IdentityStoreId,
+            identityStoreId: ssoConfigData.SSOAdminInstanceARN,
             region: region,
           },
           providerConfigRef: {
@@ -64,15 +79,22 @@ export class SsoPermissionsStack extends Chart {
     }
 
     // Iterate over each file in the boundary-policies directory and create a policy for each
-    const boundaryPoliciesDir = '../configs/boundary-policies/';
-    const boundaryPolicyFiles = fs.readdirSync(boundaryPoliciesDir);
+    const boundaryPoliciesDir = './configs/boundary-policies/';
+    const boundaryPolicyFiles = fs.readdirSync(boundaryPoliciesDir)
 
     for (const boundaryPolicyFile of boundaryPolicyFiles) {
       const policyName = boundaryPolicyFile.replace('.json', '');
       new Policy(this, policyName, {
+        metadata: {
+          name: `${policyName}`,
+        },
         spec: {
           forProvider: {
             policy: JSON.parse(fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8')),
+            tags: awsTags.tags.reduce((acc: { [key: string]: string }, tag: { key: string; value: string }) => {
+              acc[tag.key] = tag.value;
+              return acc;
+            }, {}),
           },
           providerConfigRef: {
             name: providerConfigName,
@@ -82,20 +104,22 @@ export class SsoPermissionsStack extends Chart {
     }
 
     // Create IAM Policies for each custom  policy
-    // const policiesDir = './configs/';
-    // const customPolicyFiles = group.CustomerManagedPolicies.map(
-    //   (policy: string) => `${policiesDir}custom-policies/${policy}.json`
-    // );
     const customPoliciesDir = './configs/custom-policies/';
     const customPolicyFiles = fs.readdirSync(customPoliciesDir);
 
     for (const policyFile of customPolicyFiles) {
       const policyName = policyFile.split('/').pop()?.replace('.json', '');
       new Policy(this, `${policyName}`, {
+        metadata: {
+          name: `${policyName}`,
+        },
         spec: {
           forProvider: {
             policy: JSON.parse(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
-            // policy: JSON.parse(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
+            tags: awsTags.tags.reduce((acc: { [key: string]: string }, tag: { key: string; value: string }) => {
+              acc[tag.key] = tag.value;
+              return acc;
+            }, {}),
           },
           providerConfigRef: {
             name: providerConfigName,
@@ -107,11 +131,14 @@ export class SsoPermissionsStack extends Chart {
     // Create groups
     for (const group of groupsCOnfig.Groups) {
       const groupResource = new Group(this, `Group-${group.Name}`, {
+        metadata: {
+          name: group.Name,
+        },
         spec: {
           forProvider: {
             displayName: group.DisplayName,
             description: group.Description,
-            identityStoreId: ssoConfigData.IdentityStoreId,
+            identityStoreId: ssoConfigData.SSOAdminInstanceARN,
             region: region,
           },
           providerConfigRef: {
@@ -125,10 +152,14 @@ export class SsoPermissionsStack extends Chart {
         new GroupMembership(this, `GroupMembership-${group.Name}-${member.UserName}`, {
           spec: {
             forProvider: {
-              groupId: groupResource.metadata.name,
-              memberId: member.UserName, // Use user reference or ID
+              groupIdRef: {
+                name: groupResource.metadata.name!,
+              },
+              memberIdRef: {
+                name: member.UserName,
+              },
               region: region,
-              identityStoreId: ssoConfigData.IdentityStoreId,
+              identityStoreId: ssoConfigData.SSOAdminInstanceARN,
             },
             providerConfigRef: {
               name: providerConfigName,
@@ -136,8 +167,6 @@ export class SsoPermissionsStack extends Chart {
           },
         });
       }
-
-
 
       // Create Permission Set
       const permissionSet = new PermissionSet(this, `PermissionSet-${group.Name}`, {
@@ -163,8 +192,10 @@ export class SsoPermissionsStack extends Chart {
         new ManagedPolicyAttachment(this, `ManagedPolicyAttachment-${group.Name}-${managedPolicy}`, {
           spec: {
             forProvider: {
-              permissionSetArn: permissionSet.metadata.name,
-              managedPolicyArn: managedPolicy,
+              permissionSetArnRef: {
+                name: permissionSet.metadata.name!,
+              },
+              managedPolicyArn: `arn:aws:iam::aws:policy/${managedPolicy}`,
               instanceArn: ssoConfigData.SSOAdminInstanceARN,
               region: region,
             },
@@ -199,8 +230,12 @@ export class SsoPermissionsStack extends Chart {
         new CustomerManagedPolicyAttachment(this, `CustomerManagedPolicyAttachment-${group.Name}-${customerPolicy}`, {
           spec: {
             forProvider: {
-              permissionSetArn: permissionSet.metadata.name,
-              customerManagedPolicyReference: [{ name: customerPolicy }],
+              permissionSetArnRef: {
+                name: permissionSet.metadata.name!,
+              },
+              customerManagedPolicyReference: [{ 
+                name: customerPolicy 
+              }],
               instanceArn: ssoConfigData.SSOAdminInstanceARN,
               region: region,
             },
@@ -215,8 +250,18 @@ export class SsoPermissionsStack extends Chart {
       new PermissionsBoundaryAttachment(this, `PermissionsBoundary-${group.Name}-${group.BoundaryPolicy}`, {
         spec: {
           forProvider: {
-            permissionSetArn: permissionSet.metadata.name,
-            permissionsBoundary: group.BoundaryPolicy,
+            permissionSetArnRef: {
+              name: permissionSet.metadata.name!,
+            },
+            permissionsBoundary: [
+              {
+                customerManagedPolicyReference: [
+                  {
+                    name: group.BoundaryPolicy
+                  }
+                ]
+              }
+            ],
             instanceArn: ssoConfigData.SSOAdminInstanceARN,
             region: region,
           },
@@ -233,10 +278,16 @@ export class SsoPermissionsStack extends Chart {
             spec: {
               forProvider: {
                 targetId: account.AccountId,
-                permissionSetArn: permissionSet.metadata.name,
+                targetType: 'AWS_ACCOUNT',
+                permissionSetArnRef: {
+                  name: permissionSet.metadata.name!,
+                },
                 instanceArn: ssoConfigData.SSOAdminInstanceARN,
                 region: region,
-                principalType: 'AWSAccount',
+                principalIdFromGroupRef: {
+                  name: groupResource.metadata.name!,
+                },
+                principalType: 'GROUP',
               },
               providerConfigRef: {
                 name: providerConfigName,
