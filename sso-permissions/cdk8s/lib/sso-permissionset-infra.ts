@@ -91,6 +91,7 @@ export class SsoPermissionsStack extends Chart {
       const awsTags = { ...defaultTags };
       awsTags['policytype'] = 'ssoboundary';
       const policyName = boundaryPolicyFile.replace('.json', '');
+      const policyContent = fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8');
       new Policy(this, policyName, {
         metadata: {
           name: `${policyName}`.toLowerCase(),
@@ -98,7 +99,7 @@ export class SsoPermissionsStack extends Chart {
         },
         spec: {
           forProvider: {
-            policy: JSON.stringify(fs.readFileSync(`${boundaryPoliciesDir}${boundaryPolicyFile}`, 'utf8')),
+            policy: policyContent,
             tags: awsTags,
           },
           providerConfigRef: {
@@ -115,6 +116,9 @@ export class SsoPermissionsStack extends Chart {
     for (const policyFile of customPolicyFiles) {
       const awsTags = { ...defaultTags };
       awsTags['policytype'] = 'ssocustom';
+      const policyContent = fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8');
+      
+      console.log(`policy: %s`, policyContent);
       const policyName = policyFile.split('/').pop()?.replace('.json', '').toLowerCase()!;
       new Policy(this, `${policyName}`, {
         metadata: {
@@ -123,7 +127,7 @@ export class SsoPermissionsStack extends Chart {
         },
         spec: {
           forProvider: {
-            policy: JSON.stringify(fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8')),
+            policy: policyContent,
             tags: awsTags,
           },
           providerConfigRef: {
