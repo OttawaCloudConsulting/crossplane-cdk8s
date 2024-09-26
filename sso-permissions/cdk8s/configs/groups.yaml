@@ -1,5 +1,5 @@
 Groups:
-  - Name: SRE_Standard
+  - Name: SRE-Standard
     DisplayName: "Site Reliability Engineering (SRE) Standard"
     Description: "Standard access for Site Reliability Engineering (SRE) team members."
     ManagedPolicies:
@@ -9,9 +9,9 @@ Groups:
       - AWSCodePipelineReadOnlyAccess
       - AWSCodeBuildReadOnlyAccess
     CustomerManagedPolicies:
-      - SRE_Standard_CustomPolicy
+      - SRE-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
     SessionDuration: 3600
     Members:
       - UserName: "ben.effit"
@@ -19,7 +19,7 @@ Groups:
       - UserName: "stan.still"
       - UserName: "marie.curie"
 
-  - Name: SRE_Elevated
+  - Name: SRE-Elevated
     DisplayName: "Site Reliability Engineering (SRE) Elevated"
     Description: "Elevated access for Site Reliability Engineering (SRE) team members."
     ManagedPolicies:
@@ -30,14 +30,14 @@ Groups:
       - AmazonS3FullAccess
       - CloudWatchFullAccess
     CustomerManagedPolicies:
-      - SRE_Elevated_CustomPolicy
+      - SRE-Elevated-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
     SessionDuration: 3600
     Members:
       - UserName: "marie.curie"
 
-  - Name: Infra_Network_Standard
+  - Name: Infra-Network-Standard
     DisplayName: "Cloud Infrastructure and Networking Standard"
     Description: "Standard access for Cloud Infrastructure and Networking team members."
     ManagedPolicies:
@@ -45,16 +45,16 @@ Groups:
       - AmazonEC2FullAccess
       - AmazonS3FullAccess
     CustomerManagedPolicies:
-      - Infra_Network_Standard_CustomPolicy
+      - Infra-Network-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
     SessionDuration: 3600
     Members:
       - UserName: "will.barrow"
       - UserName: "eilene.dover"
       - UserName: "barb.dwyer"
 
-  - Name: Infra_Network_Elevated
+  - Name: Infra-Network-Elevated
     DisplayName: "Cloud Infrastructure and Networking Elevated"
     Description: "Elevated access for Cloud Infrastructure and Networking team members."
     ManagedPolicies:
@@ -65,28 +65,28 @@ Groups:
       - AmazonRoute53FullAccess
       - AWSDirectConnectFullAccess
     CustomerManagedPolicies:
-      - Infra_Network_Elevated_CustomPolicy
+      - Infra-Network-Elevated-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
     SessionDuration: 3600
     Members:
       - UserName: "will.barrow"
 
-  - Name: Sec_Com_Gov_Standard
+  - Name: Sec-Com-Gov-Standard
     DisplayName: "Security Compliance Governance Standard"
     Description: "Standard access for Security Compliance Governance Standard team members"
     ManagedPolicies:
       - SecurityAudit
       - AWSConfigUserAccess
     CustomerManagedPolicies:
-      - Sec_Com_Gov_Standard_CustomPolicy
+      - Sec-Com-Gov-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
     SessionDuration: 3600
     Members:
       - UserName: "barry.cade"
 
-  - Name: Sec_Com_Gov_Elevated
+  - Name: Sec-Com-Gov-Elevated
     DisplayName: "Security Compliance Governance Elevated"
     Description: "Elevated Compliance Governance Standard access for team members"
     ManagedPolicies:
@@ -98,28 +98,28 @@ Groups:
       - AWSShieldFullAccess
       - AWSWAFFullAccess
     CustomerManagedPolicies:
-      - Sec_Com_Gov_Elevated_CustomPolicy
+      - Sec-Com-Gov-Elevated-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
     SessionDuration: 3600
     Members:
       - UserName: "barry.cade"
 
-  - Name: Arch_DR_Standard
+  - Name: Arch-DR-Standard
     DisplayName: "Architecture Disaster Recovery Standard"
     Description: "Standard access for Architecture Disaster Recovery team members."
     ManagedPolicies:
       - AWSBackupOperatorAccess
       - AmazonCloudWatchReadOnlyAccess
     CustomerManagedPolicies:
-      - Arch_DR_Standard_CustomPolicy
+      - Arch-DR-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
     SessionDuration: 3600
     Members:
       - UserName: "dan.saul.knight"
 
-  - Name: Arch_DR_Elevated
+  - Name: Arch-DR-Elevated
     DisplayName: "Architecture Disaster Recovery Elevated"
     Description: "Elevated access for Architecture Disaster Recovery team members."
     ManagedPolicies:
@@ -130,30 +130,30 @@ Groups:
       - AmazonDMSFullAccess
       - AmazonS3FullAccess
     CustomerManagedPolicies:
-      - Arch_DR_Elevated_CustomPolicy
+      - Arch-DR-Elevated-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
     SessionDuration: 3600
     Members:
       - UserName: "dan.saul.knight"
 
-  - Name: Cost_Support_Standard
+  - Name: Cost-Support-Standard
     DisplayName: "Cost Management and Support Standard"
     Description: "Standard access for Cost Management and Support team members."
     ManagedPolicies:
       - AWSBillingReadOnlyAccess
       - CostExplorerReadOnlyAccess
     CustomerManagedPolicies:
-      - Cost_Support_Standard_CustomPolicy
+      - Cost-Support-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
     SessionDuration: 3600
     Members:
       - UserName: "robin.banks"
       - UserName: "justin.case"
       - UserName: "anna.prentice"
 
-  - Name: Cost_Support_Elevated
+  - Name: Cost-Support-Elevated
     DisplayName: "Cost Management and Support Elevated"
     Description: "Elevated access for Cost Management and Support team members."
     ManagedPolicies:
@@ -162,9 +162,9 @@ Groups:
       - AWSSupportAccess
       - AmazonSNSFullAccess
     CustomerManagedPolicies:
-      - Cost_Support_Elevated_CustomPolicy
+      - Cost-Support-Elevated-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
     SessionDuration: 3600
     Members:
       - UserName: "robin.banks"
