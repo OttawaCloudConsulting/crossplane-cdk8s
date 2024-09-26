@@ -4,6 +4,6 @@ tags:
   - key: email
     value: user.name@example.com
   - key: solution
-    value: dns
+    value: sso-permissions
   - key: classification
     value: unclassified
