@@ -11,8 +11,7 @@ Groups:
     CustomerManagedPolicies:
       - SRE_Standard_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy_Standard
     SessionDuration: 3600
     Members:
       - UserName: "ben.effit"
@@ -33,8 +32,7 @@ Groups:
     CustomerManagedPolicies:
       - SRE_Elevated_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy_Elevated
     SessionDuration: 3600
     Members:
       - UserName: "marie.curie"
@@ -49,8 +47,7 @@ Groups:
     CustomerManagedPolicies:
       - Infra_Network_Standard_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy_Standard
     SessionDuration: 3600
     Members:
       - UserName: "will.barrow"
@@ -70,8 +67,7 @@ Groups:
     CustomerManagedPolicies:
       - Infra_Network_Elevated_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy_Elevated
     SessionDuration: 3600
     Members:
       - UserName: "will.barrow"
@@ -85,8 +81,7 @@ Groups:
     CustomerManagedPolicies:
       - Sec_Com_Gov_Standard_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy_Standard
     SessionDuration: 3600
     Members:
       - UserName: "barry.cade"
@@ -105,8 +100,7 @@ Groups:
     CustomerManagedPolicies:
       - Sec_Com_Gov_Elevated_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy_Elevated
     SessionDuration: 3600
     Members:
       - UserName: "barry.cade"
@@ -120,8 +114,7 @@ Groups:
     CustomerManagedPolicies:
       - Arch_DR_Standard_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy_Standard
     SessionDuration: 3600
     Members:
       - UserName: "dan.saul.knight"
@@ -139,8 +132,7 @@ Groups:
     CustomerManagedPolicies:
       - Arch_DR_Elevated_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy_Elevated
     SessionDuration: 3600
     Members:
       - UserName: "dan.saul.knight"
@@ -154,8 +146,7 @@ Groups:
     CustomerManagedPolicies:
       - Cost_Support_Standard_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Standard
+    BoundaryPolicy: SSOBoundaryPolicy_Standard
     SessionDuration: 3600
     Members:
       - UserName: "robin.banks"
@@ -173,8 +164,7 @@ Groups:
     CustomerManagedPolicies:
       - Cost_Support_Elevated_CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: 
-      SSOBoundaryPolicy_Elevated
+    BoundaryPolicy: SSOBoundaryPolicy_Elevated
     SessionDuration: 3600
     Members:
       - UserName: "robin.banks"
