@@ -9,7 +9,7 @@ const app = new App();
 const accountsConfig = parseYamlConfig('./configs/accounts.yaml');
 const awsTagsConfig = parseYamlConfig('./configs/awstags.yaml');
 const groupsCOnfig = parseYamlConfig('./configs/groups.yaml');
-const kl8sTagsConfig = parseYamlConfig('./configs/k8stags.yaml');
+const k8sTagsConfig = parseYamlConfig('./configs/k8stags.yaml');
 const ssoConfigData = parseYamlConfig('./configs/sso-configs.yaml');
 const userConfigs = parseYamlConfig('./configs/users.yaml');
 
@@ -22,7 +22,7 @@ new SsoPermissionsStack(app, 'sso-permission-sets-cdks8-app', {
   accountsConfig,
   awsTagsConfig,
   groupsCOnfig,
-  kl8sTagsConfig,
+  k8sTagsConfig,
   ssoConfigData,
   userConfigs,
   region,
