@@ -8,7 +8,6 @@
         "budgets:View*",
         "cur:Get*",
         "support:Describe*",
-        "support:View*",
         "sns:Publish"
       ],
       "Resource": [

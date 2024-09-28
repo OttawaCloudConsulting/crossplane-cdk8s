@@ -4,7 +4,6 @@
     {
       "Effect": "Allow",
       "Action": [
-        "vpc:Describe*",
         "ec2:Describe*",
         "ec2:Create*",
         "ec2:Modify*",
