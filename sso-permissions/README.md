@@ -1,12 +1,11 @@
 # SSO Permissions CDK8s Setup
 
 ## Table of Contents
-
 - [SSO Permissions CDK8s Setup](#sso-permissions-cdk8s-setup)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Crossplane Dependencies](#crossplane-dependencies)
-  - [Directory Structure:](#directory-structure)
+  - [Directory Structure](#directory-structure)
   - [Updating the configuration YAML files](#updating-the-configuration-yaml-files)
     - [awstags.yaml - AWS Resource Tags](#awstagsyaml---aws-resource-tags)
     - [k8stags.yaml - Kubernetes annotations tags](#k8stagsyaml---kubernetes-annotations-tags)
@@ -14,27 +13,59 @@
     - [groups.yaml - SSO Groups Configuration](#groupsyaml---sso-groups-configuration)
     - [sso-configs.yaml - AWS SSO Configuration](#sso-configsyaml---aws-sso-configuration)
     - [users.yaml - AWS IdentityStore Users Configuration](#usersyaml---aws-identitystore-users-configuration)
-    - [boundary-policies/ and custom-policies/ - IAM Policy JSON Files](#boundary-policies-and-custom-policies---iam-policy-json-files)
+    - [boundary policies and custom policies - IAM Policy JSON Files](#boundary-policies-and-custom-policies---iam-policy-json-files)
   - [Executing the CDK8s](#executing-the-cdk8s)
     - [Install dependencies](#install-dependencies)
     - [Create CDK8s manifests](#create-cdk8s-manifests)
 
 ## Overview
 
-This project leverages CDK8s to manage AWS SSO Permission Sets, and AWS Identity Center Users and Groups resources. The infrastructure is defined using TypeScript, and manifests are generated and deployed via Crossplane. Tags for AWS resources and Kubernetes annotations are stored in YAML files, allowing for dynamic configuration. The CDK8s setup enables easy management of AWS Identity Center Users, Groups, AWS SSO Admin Permission Sets, and custom IAM Policies configurations using Kubernetes-native resources.
+This project uses **CDK8s** in conjunction with **Crossplane** to manage AWS SSO Permission Sets, IAM Policies, and CloudFormation StackSets. The project automates the generation of Kubernetes manifests based on the provided YAML configuration files to handle permissions across AWS accounts.
 
 **Important Note - IAM Policies included in this project are for example purposes only. They are not suitable for production use, and have not been reviewed for security or even functional use**
 
 ## Crossplane Dependencies
 
-This code was written with [Upbound AWS Providers Version 11.0](https://marketplace.upbound.io/providers/upbound/provider-family-aws/v1.11.0/providers?)
+To use this project, you'll need to have **Crossplane** installed and running in your Kubernetes cluster. Crossplane allows you to manage AWS resources such as IAM policies, SSO permission sets, and CloudFormation stack sets directly from Kubernetes.
 
 To deploy the created tempaltes, the kubernetes cluster must be running:
+
 + [provider-aws-ssoadmin](https://marketplace.upbound.io/providers/upbound/provider-aws-ssoadmin/v1.14.0)
 + [provider-aws-identitystore](https://marketplace.upbound.io/providers/upbound/provider-aws-identitystore/v1.14.0)
 + [provider-aws-iam](https://marketplace.upbound.io/providers/upbound/provider-aws-iam/v1.14.0)
 
-## Directory Structure:
+For more information, visit the [Crossplane documentation](https://crossplane.io/docs/).
+
+## Directory Structure
+
+```bash
+.
+├── bin
+│   └── sso-permission-sets-infra-app.ts
+├── configs
+│   ├── accounts.yaml
+│   ├── awstags.yaml
+│   ├── groups.yaml
+│   ├── k8stags.yaml
+│   ├── policies
+│   │   ├── boundary
+│   │   │   ├── SSOBoundaryPolicy-Elevated.json
+│   │   │   └── SSOBoundaryPolicy-Standard.json
+│   │   └── custom
+│   │       ├── Arch-DR-Elevated-CustomPolicy.json
+│   │       ├── ...
+│   ├── sso-configs.yaml
+│   └── users.yaml
+├── crds
+│   └── crossplane.yaml
+├── lib
+│   ├── cloudformation-stacksets.ts
+│   ├── sso-permissionset-infra.ts
+│   ├── tags-parser.ts
+│   └── yaml-parser.ts
+└── tsconfig.json
+```
+
 
 - **`bin/`**: This directory contains the executable TypeScript files that define command-line tools or scripts for the project. The files in `bin/` are typically compiled to JavaScript and mapped to commands via the `bin` field in `package.json`, making them directly executable through the command line. These scripts are responsible for high-level tasks like deploying infrastructure or running specific commands related to the project’s functionality.
   
@@ -84,14 +115,14 @@ Accounts:
     AccountName: "MyAccount1"
     AccountEmail: root1.email@example.com
     SSOGroups:
-      - SRE_Standard
-      - SRE_Elevated
+      - SRE-Standard
+      - SRE-Elevated
   - AccountId: "222222222222"
     AccountName: "MyAccount2"
     AccountEmail: root2.email@example.com
     SSOGroups:
-      - SRE_Standard
-      - Infra_Network_Standard
+      - SRE-Standard
+      - Infra-Network-Standard
 ```
 
 Each account can be associated with multiple SSO groups. Modify this file to assign permission sets (SSO groups) to the AWS accounts managed by your organization.
@@ -109,10 +140,10 @@ Groups:
       - AmazonEC2ReadOnlyAccess
       - AmazonS3ReadOnlyAccess
     CustomerManagedPolicies:
-      - SRE_Standard_CustomPolicy
+      - SRE-Standard-CustomPolicy
     InlinePolicies: []
-    BoundaryPolicy: SSOBoundaryPolicy_Standard
-    SessionDuration: 3600
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
     Members:
       - UserName: "user1"
       - UserName: "user2"
@@ -125,14 +156,22 @@ This file defines the permissions and policies for each group and the users who 
 The `sso-configs.yaml` file provides configuration settings for AWS SSO, such as the ARN of the SSO instance. This is necessary for creating resources like permission sets in the correct AWS SSO instance. Example:
 
 ```yaml
-SSOAdminInstanceARN: arn:aws:sso:::instance/ssoins-12345678901234567
+SSOAdminInstanceARN: arn:aws:sso:::instance/ssoins-xxxxxxxxxxxxxxx
+SSOAdminIdentityStoreId: d-xxxxxxxxxxxxxxxxx
 ```
 
 Make sure this ARN matches the SSO instance in your AWS environment.
 
 ### users.yaml - AWS IdentityStore Users Configuration
 
-The `users.yaml` file defines the users to be created in AWS IdentityStore, which is integrated with AWS SSO. Each user has attributes like name, email, and role details. Example:
+The `users.yaml` file defines the users to be created in AWS IdentityStore, which is integrated with AWS SSO. Each user has attributes like name, email, and role details. 
+
+- **UserName**: AWS IAM username.
+- **DisplayName**: The display name of the user.
+- **Email**: User’s email.
+- **PreferredLanguage**: Preferred language setting for the user.
+
+Example:
 
 ```yaml
 users:
@@ -150,12 +189,12 @@ users:
 
 This file allows you to dynamically manage users across different accounts and SSO groups. Each user is associated with the SSO identity store and managed through the generated manifests.
 
-### boundary-policies/ and custom-policies/ - IAM Policy JSON Files
+### boundary policies and custom policies - IAM Policy JSON Files
 
 These directories contain JSON files that define IAM boundary and custom policies, respectively. These policies are linked to the SSO groups via `groups.yaml`.
 
-- **Boundary Policies**: Policies applied as permission boundaries for specific SSO groups.
-- **Custom Policies**: Policies created and attached to SSO groups as customer-managed policies.
+- **Boundary Policies**: These policies limit the maximum permissions users or groups can have, restricting access to critical actions like resource deletion.
+- **Custom Policies**: These policies define specific sets of permissions tailored to different teams and use cases, such as elevated access for disaster recovery or limited read/write access for cost management.
 
 The files must be in valid JSON format and should reflect the specific permissions required by each group.
 
@@ -179,11 +218,12 @@ Example boundary policy file (SSOBoundaryPolicy_Standard.json):
 
 Modify these files as required to reflect the actual IAM policies needed in your environment.
 
+
 ## Executing the CDK8s
 
 ### Install dependencies
 
-Ensure all dependencies are installed by running the following command in the project root directory:
+To set up the project, first install the necessary dependencies:
 
 ```bash
 npm install
@@ -193,10 +233,10 @@ This will install required packages such as `cdk8s`, `cdk8s-cli`, and other nece
 
 ### Create CDK8s manifests
 
-Once the configuration files are updated and dependencies installed, generate the manifests by running:
+Once the manifests are generated, deploy them to the Kubernetes cluster:
 
 ```bash
-cdk8s synth
+cdk8s deploy
 ```
 
-This command generates the Kubernetes manifests for AWS SSO users, groups, permission sets​⬤
+This will apply the Kubernetes manifests to manage AWS SSO, IAM policies, and CloudFormation StackSets through Crossplane.
