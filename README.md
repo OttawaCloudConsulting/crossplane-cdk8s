@@ -33,3 +33,4 @@ In summary, writing CDK8s code to generate Crossplane manifests provides us with
 ## Packages
 
 **[route53](./route53)** | Creates AWS Route53 Zones and RecordSets from simple YAML
+**[SSO Permissions](./sso-permissions) | Creates AWS SSO Permissions Sets, including IAM Policies, Boundary Policies, and AWS IdentityStore Users and Groups.
