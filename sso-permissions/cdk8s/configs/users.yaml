@@ -1,0 +1,132 @@
+users:
+  - UserName: "robin.banks"
+    DisplayName: "Robin Banks"
+    Name:
+      FamilyName: "Banks"
+      GivenName: "Robin"
+    Title: "Senior Cloud Operations Engineer" # Cost Management and Support
+    Email: "robin.banks@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-202-555-0147”
+    PreferredLanguage: "en-US"
+
+  - UserName: "stan.still"
+    DisplayName: "Stan Still"
+    Name:
+      FamilyName: "Still"
+      GivenName: "Stan"
+    Title: "Site Reliability Engineer" # Site Reliability Engineering (SRE)
+    Email: "stan.still@example.com"
+    TimeZone: "Central European Time"
+    PhoneNumber: ”+1-303-555-0182”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "barry.cade"
+    DisplayName: "Barry Cade"
+    Name:
+      FamilyName: "Cade"
+      GivenName: "Barry"
+    Title: "Cloud Security Engineer" # Security, Compliance and Governance
+    Email: "barry.cade@example.com"
+    TimeZone: "Pacific Standard Time"
+    PhoneNumber: ”+1-415-555-0163”
+    PreferredLanguage: "en-US"
+
+  - UserName: "justin.case"
+    DisplayName: "Justin Case"
+    Name:
+      FamilyName: "Case"
+      GivenName: "Justin"
+    Title: "Cloud Support Engineer" # Cost Management and Support
+    Email: "justin.case@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-212-555-0195”
+    PreferredLanguage: "en-US"
+
+  - UserName: "ben.effit"
+    DisplayName: "Ben Effit"
+    Name:
+      FamilyName: "Effit"
+      GivenName: "Ben"
+    Title: "DevOps Engineer" # Site Reliability Engineering (SRE)
+    Email: "ben.effit@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-646-555-0118”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "will.barrow"
+    DisplayName: "Will Barrow"
+    Name:
+      FamilyName: "Barrow"
+      GivenName: "Will"
+    Title: "Senior Cloud Infrastructure Engineer" # Cloud Infrastructure and Networking
+    Email: "will.barrow@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-718-555-0139”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "dan.saul.knight"
+    DisplayName: "Dan Saul Knight"
+    Name:
+      FamilyName: "Knight"
+      GivenName: "Dan Saul"
+    Title: "Cloud Infrastructure and Networking" # Cloud Infrastructure and Networking
+    Email: "dan.saul.knight@example.com"
+    TimeZone: "Central Time"
+    PhoneNumber: "+1-312-555-0188"
+    PreferredLanguage: "en-US"
+
+  - UserName: "tim.burr"
+    DisplayName: "Tim Burr"
+    Name:
+      FamilyName: "Burr"
+      GivenName: "Tim"
+    Title: "Cloud Infrastructure and Networking" # Site Reliability Engineering (SRE)
+    Email: "tim.burr@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: "+1-303-555-0166"
+    PreferredLanguage: "en-US"
+
+  - UserName: "barb.dwyer"
+    DisplayName: "Barb Dwyer"
+    Name:
+      FamilyName: "Dwyer"
+      GivenName: "Barb"
+    Title: "Cloud Systems Administrator" # Cloud Infrastructure and Networking
+    Email: "barb.dwyer@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-404-555-0155”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "anna.prentice"
+    DisplayName: "Anna Prentice"
+    Name:
+      FamilyName: "Prentice"
+      GivenName: "Anna"
+    Title: "Cloud Operations Analyst" # Cloud Operations Analyst
+    Email: "anna.prentice@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-617-555-0177”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "eileen.dover"
+    DisplayName: "Eileen Dover"
+    Name:
+      FamilyName: "Dover"
+      GivenName: "Eileen"
+    Title: "Cloud Network Engineer" # Cloud Infrastructure and Networking
+    Email: "eileen.dover@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-206-555-0123”
+    PreferredLanguage: "fr-CA"
+
+  - UserName: "marie.curie"
+    DisplayName: "Marie Curie"
+    Name:
+      FamilyName: "Curie"
+      GivenName: "Marie"
+    Title: "Senior Site Reliability Engineer" # Site Reliability Engineering (SRE)
+    Email: "marie.curie@example.com"
+    TimeZone: "Eastern Standard Time"
+    PhoneNumber: ”+1-312-555-0188”
+    PreferredLanguage: "fr-FR"

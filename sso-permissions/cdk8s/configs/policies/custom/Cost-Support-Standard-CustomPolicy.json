@@ -1,0 +1,22 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ce:Get*",
+        "budgets:View*",
+        "cur:Get*",
+        "support:Describe*",
+        "sns:Publish"
+      ],
+      "Resource": [
+        "arn:aws:ce:{{ Region }}:{{ AccountID }}:cost-explorer/*",
+        "arn:aws:budgets:{{ Region }}:{{ AccountID }}:budget/*",
+        "arn:aws:cur:{{ Region }}:{{ AccountID }}:report/*",
+        "arn:aws:support:{{ Region }}:{{ AccountID }}:*",
+        "arn:aws:sns:{{ Region }}:{{ AccountID }}:{{ SNSTopicName }}"
+      ]
+    }
+  ]
+}

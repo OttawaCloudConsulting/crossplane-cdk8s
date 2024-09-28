@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "backup:Describe*",
+        "backup:Get*",
+        "backup:List*",
+        "cloudformation:DescribeStacks",
+        "cloudformation:ListStackResources",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:backup:{{ Region }}:{{ AccountID }}:backup-vault/{{ BackupVaultName }}",
+        "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/{{ StackName }}/*",
+        "arn:aws:s3:::{{ S3BucketName }}",
+        "arn:aws:s3:::{{ S3BucketName }}/*"
+      ]
+    }
+  ]
+}

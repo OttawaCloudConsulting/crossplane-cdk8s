@@ -5,6 +5,7 @@
 - [Route53 CDK8s Setup](#route53-cdk8s-setup)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
+  - [Crossplane Dependencies](#crossplane-dependencies)
   - [Directory Structure:](#directory-structure)
   - [Updating the configuration YAML files](#updating-the-configuration-yaml-files)
     - [awstags.yaml - AWS Resource Tags](#awstagsyaml---aws-resource-tags)
@@ -17,6 +18,12 @@
 ## Overview
 
 This project leverages CDK8s to manage AWS Route 53 resources such as hosted zones and DNS records. The infrastructure is defined using TypeScript, and manifests are generated and deployed via Crossplane. Tags for AWS resources and Kubernetes annotations are stored in YAML files, allowing for dynamic configuration. The CDK8s setup enables easy management of DNS entries and Route 53 configurations using Kubernetes-native resources.
+
+## Crossplane Dependencies
+
+This code was written with [Upbound AWS Providers Version 11.0](https://marketplace.upbound.io/providers/upbound/provider-family-aws/v1.11.0/providers?)
+
+To deploy the created tempaltes, the kubernetes cluster must be running [provider-aws-route53](https://marketplace.upbound.io/providers/upbound/provider-aws-route53/latest)
 
 ## Directory Structure:
 

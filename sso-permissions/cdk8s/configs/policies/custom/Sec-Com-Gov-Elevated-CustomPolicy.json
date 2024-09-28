@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "config:*",
+        "securityhub:*",
+        "iam:*",
+        "kms:*",
+        "shield:*",
+        "waf:*"
+      ],
+      "Resource": [
+        "arn:aws:config:{{ Region }}:{{ AccountID }}:config-rule/*",
+        "arn:aws:securityhub:{{ Region }}:{{ AccountID }}:securityhub/*",
+        "arn:aws:iam::{{ AccountID }}:role/*",
+        "arn:aws:kms:{{ Region }}:{{ AccountID }}:key/*",
+        "arn:aws:shield:{{ Region }}:{{ AccountID }}:*",
+        "arn:aws:waf:{{ Region }}:{{ AccountID }}:*"
+      ]
+    }
+  ]
+}

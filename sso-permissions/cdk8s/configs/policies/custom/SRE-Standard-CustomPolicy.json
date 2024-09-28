@@ -1,0 +1,22 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codepipeline:List*",
+        "codepipeline:Get*",
+        "codebuild:BatchGet*",
+        "cloudformation:DescribeStacks",
+        "cloudformation:DescribeStackEvents",
+        "iam:ListRoles",
+        "iam:ListPolicies"
+      ],
+      "Resource": [
+        "arn:aws:codepipeline:{{ Region }}:{{ AccountID }}:pipeline/{{ PipelineName }}",
+        "arn:aws:cloudformation:{{ Region }}:{{ AccountID }}:stack/{{ StackName }}/*",
+        "arn:aws:iam::{{ AccountID }}:role/{{ RoleName }}"
+      ]
+    }
+  ]
+}

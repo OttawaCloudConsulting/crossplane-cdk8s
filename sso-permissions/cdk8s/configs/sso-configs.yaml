@@ -1,0 +1,2 @@
+SSOAdminInstanceARN: arn:aws:sso:::instance/ssoins-xxxxxxxxxxxxxxx
+SSOAdminIdentityStoreId: d-xxxxxxxxxxxxxxxxx

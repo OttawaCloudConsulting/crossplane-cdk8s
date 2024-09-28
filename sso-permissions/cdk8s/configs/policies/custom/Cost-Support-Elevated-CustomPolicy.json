@@ -1,0 +1,26 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ce:*",
+        "budgets:*",
+        "cur:*",
+        "support:*",
+        "billing:*",
+        "sns:Publish",
+        "sns:CreateTopic",
+        "sns:DeleteTopic"
+      ],
+      "Resource": [
+        "arn:aws:ce:{{ Region }}:{{ AccountID }}:cost-explorer/*",
+        "arn:aws:budgets:{{ Region }}:{{ AccountID }}:budget/*",
+        "arn:aws:cur:{{ Region }}:{{ AccountID }}:report/*",
+        "arn:aws:support:{{ Region }}:{{ AccountID }}:*",
+        "arn:aws:billing:{{ Region }}:{{ AccountID }}:*",
+        "arn:aws:sns:{{ Region }}:{{ AccountID }}:{{ SNSTopicName }}"
+      ]
+    }
+  ]
+}

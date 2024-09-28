@@ -1,0 +1,170 @@
+Groups:
+  - Name: SRE-Standard
+    DisplayName: "Site Reliability Engineering (SRE) Standard"
+    Description: "Standard access for Site Reliability Engineering (SRE) team members."
+    ManagedPolicies:
+      - AmazonEC2ReadOnlyAccess
+      - AmazonS3ReadOnlyAccess
+      - CloudWatchReadOnlyAccess
+      - AWSCodePipelineReadOnlyAccess
+      - AWSCodeBuildReadOnlyAccess
+    CustomerManagedPolicies:
+      - SRE-Standard-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
+    Members:
+      - UserName: "ben.effit"
+      - UserName: "tim.burr"
+      - UserName: "stan.still"
+      - UserName: "marie.curie"
+
+  - Name: SRE-Elevated
+    DisplayName: "Site Reliability Engineering (SRE) Elevated"
+    Description: "Elevated access for Site Reliability Engineering (SRE) team members."
+    ManagedPolicies:
+      - AWSCloudFormationFullAccess
+      - AWSCodePipelineFullAccess
+      - AWSCodeBuildAdminAccess
+      - AmazonEC2FullAccess
+      - AmazonS3FullAccess
+      - CloudWatchFullAccess
+    CustomerManagedPolicies:
+      - SRE-Elevated-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
+    SessionDuration: PT8H
+    Members:
+      - UserName: "marie.curie"
+
+  - Name: Infra-Network-Standard
+    DisplayName: "Cloud Infrastructure and Networking Standard"
+    Description: "Standard access for Cloud Infrastructure and Networking team members."
+    ManagedPolicies:
+      - AmazonVPCReadOnlyAccess
+      - AmazonEC2FullAccess
+      - AmazonS3FullAccess
+    CustomerManagedPolicies:
+      - Infra-Network-Standard-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
+    Members:
+      - UserName: "will.barrow"
+      - UserName: "eilene.dover"
+      - UserName: "barb.dwyer"
+
+  - Name: Infra-Network-Elevated
+    DisplayName: "Cloud Infrastructure and Networking Elevated"
+    Description: "Elevated access for Cloud Infrastructure and Networking team members."
+    ManagedPolicies:
+      - AWSCloudFormationFullAccess
+      - AmazonVPCFullAccess
+      - AmazonEC2FullAccess
+      - ElasticLoadBalancingFullAccess
+      - AmazonRoute53FullAccess
+      - AWSDirectConnectFullAccess
+    CustomerManagedPolicies:
+      - Infra-Network-Elevated-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
+    SessionDuration: PT8H
+    Members:
+      - UserName: "will.barrow"
+
+  - Name: Sec-Com-Gov-Standard
+    DisplayName: "Security Compliance Governance Standard"
+    Description: "Standard access for Security Compliance Governance Standard team members"
+    ManagedPolicies:
+      - SecurityAudit
+      - AWSConfigUserAccess
+    CustomerManagedPolicies:
+      - Sec-Com-Gov-Standard-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
+    Members:
+      - UserName: "barry.cade"
+
+  - Name: Sec-Com-Gov-Elevated
+    DisplayName: "Security Compliance Governance Elevated"
+    Description: "Elevated Compliance Governance Standard access for team members"
+    ManagedPolicies:
+      - AWSCloudFormationFullAccess
+      - AWSConfigFullAccess
+      - AWSSecurityHubFullAccess
+      - AWSSecurityTokenServiceFullAccess
+      - AmazonKMSFullAccess
+      - AWSShieldFullAccess
+      - AWSWAFFullAccess
+    CustomerManagedPolicies:
+      - Sec-Com-Gov-Elevated-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
+    SessionDuration: PT8H
+    Members:
+      - UserName: "barry.cade"
+
+  - Name: Arch-DR-Standard
+    DisplayName: "Architecture Disaster Recovery Standard"
+    Description: "Standard access for Architecture Disaster Recovery team members."
+    ManagedPolicies:
+      - AWSBackupOperatorAccess
+      - AmazonCloudWatchReadOnlyAccess
+    CustomerManagedPolicies:
+      - Arch-DR-Standard-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
+    Members:
+      - UserName: "dan.saul.knight"
+
+  - Name: Arch-DR-Elevated
+    DisplayName: "Architecture Disaster Recovery Elevated"
+    Description: "Elevated access for Architecture Disaster Recovery team members."
+    ManagedPolicies:
+      - AWSCloudFormationFullAccess
+      - AWSBackupFullAccess
+      - AmazonRDSFullAccess
+      - AmazonElasticacheFullAccess
+      - AmazonDMSFullAccess
+      - AmazonS3FullAccess
+    CustomerManagedPolicies:
+      - Arch-DR-Elevated-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
+    SessionDuration: PT8H
+    Members:
+      - UserName: "dan.saul.knight"
+
+  - Name: Cost-Support-Standard
+    DisplayName: "Cost Management and Support Standard"
+    Description: "Standard access for Cost Management and Support team members."
+    ManagedPolicies:
+      - AWSBillingReadOnlyAccess
+      - CostExplorerReadOnlyAccess
+    CustomerManagedPolicies:
+      - Cost-Support-Standard-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Standard
+    SessionDuration: PT8H
+    Members:
+      - UserName: "robin.banks"
+      - UserName: "justin.case"
+      - UserName: "anna.prentice"
+
+  - Name: Cost-Support-Elevated
+    DisplayName: "Cost Management and Support Elevated"
+    Description: "Elevated access for Cost Management and Support team members."
+    ManagedPolicies:
+      - AWSBillingFullAccess
+      - CostExplorerFullAccess
+      - AWSSupportAccess
+      - AmazonSNSFullAccess
+    CustomerManagedPolicies:
+      - Cost-Support-Elevated-CustomPolicy
+    InlinePolicies: []
+    BoundaryPolicy: SSOBoundaryPolicy-Elevated
+    SessionDuration: PT8H
+    Members:
+      - UserName: "robin.banks"

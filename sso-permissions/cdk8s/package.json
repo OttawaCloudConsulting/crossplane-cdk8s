@@ -1,0 +1,63 @@
+{
+  "name": "sso-permission-sets-cdk8s-crossplane",
+  "version": "1.0.0",
+  "bin": {
+    "sso-permission-sets-cdk8s-infra": "bin/sso-permission-sets-infra-app.ts"
+  },
+  "description": "AWS CDK8s to provide Crossplane Manifests for SSO Permission Sets and related services",
+  "private": true,
+  "preferGlobal": true,
+  "keywords": [
+    "cdk8s",
+    "Kubernetes",
+    "IaC",
+    "infrastructure",
+    "AWS",
+    "Crossplane",
+    "SSO",
+    "Identity Center"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "readme": "README.md",
+  "files": [
+    "bin/",
+    "lib/",
+    "configs/",
+    "crds/",
+    "cdk8s.yaml",
+    "get-crds.sh",
+    "package.json",
+    "tsconfig.json",
+    "README.md"
+  ],
+  "scripts": {
+    "import": "cdk8s import",
+    "synth": "cdk8s synth",
+    "compile": "tsc --build",
+    "watch": "tsc --build -w",
+    "test": "jest",
+    "build": "npm run compile && npm run test && npm run synth",
+    "upgrade": "npm i cdk8s@latest cdk8s-cli@latest",
+    "upgrade:next": "npm i cdk8s@next cdk8s-cli@next"
+  },
+  "dependencies": {
+    "cdk8s": "^2.69.3",
+    "cdk8s-plus-28": "^2.5.6",
+    "constructs": "^10.3.0",
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^14",
+    "cdk8s-cli": "^2.198.221",
+    "fs": "^0.0.1-security",
+    "jest": "^26",
+    "ts-jest": "^26",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowReadOnlyAccess",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "s3:ListBucket",
+        "s3:GetObject",
+        "cloudwatch:GetMetricData",
+        "cloudwatch:ListMetrics",
+        "logs:GetLogEvents",
+        "logs:DescribeLogStreams",
+        "iam:List*",
+        "iam:Get*",
+        "sts:AssumeRole",
+        "lambda:List*",
+        "lambda:Get*",
+        "dynamodb:Scan",
+        "dynamodb:Query"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowLimitedWriteAccess",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances",
+        "s3:PutObject",
+        "lambda:InvokeFunction"
+      ],
+      "Resource": [
+        "arn:aws:ec2:{{ Region }}:{{ AccountID }}:instance/{{ InstanceID }}",
+        "arn:aws:s3:::{{ S3BucketName }}/*",
+        "arn:aws:lambda:{{ Region }}:{{ AccountID }}:function:{{ FunctionName }}"
+      ]
+    },
+    {
+      "Sid": "DenySensitiveActions",
+      "Effect": "Deny",
+      "Action": [
+        "iam:*",
+        "ec2:TerminateInstances",
+        "s3:DeleteBucket",
+        "lambda:DeleteFunction"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
