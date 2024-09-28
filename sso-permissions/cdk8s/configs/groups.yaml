@@ -12,7 +12,7 @@ Groups:
       - SRE-Standard-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Standard
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "ben.effit"
       - UserName: "tim.burr"
@@ -33,7 +33,7 @@ Groups:
       - SRE-Elevated-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Elevated
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "marie.curie"
 
@@ -48,7 +48,7 @@ Groups:
       - Infra-Network-Standard-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Standard
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "will.barrow"
       - UserName: "eilene.dover"
@@ -68,7 +68,7 @@ Groups:
       - Infra-Network-Elevated-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Elevated
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "will.barrow"
 
@@ -82,7 +82,7 @@ Groups:
       - Sec-Com-Gov-Standard-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Standard
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "barry.cade"
 
@@ -101,7 +101,7 @@ Groups:
       - Sec-Com-Gov-Elevated-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Elevated
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "barry.cade"
 
@@ -115,7 +115,7 @@ Groups:
       - Arch-DR-Standard-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Standard
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "dan.saul.knight"
 
@@ -133,7 +133,7 @@ Groups:
       - Arch-DR-Elevated-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Elevated
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "dan.saul.knight"
 
@@ -147,7 +147,7 @@ Groups:
       - Cost-Support-Standard-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Standard
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "robin.banks"
       - UserName: "justin.case"
@@ -165,6 +165,6 @@ Groups:
       - Cost-Support-Elevated-CustomPolicy
     InlinePolicies: []
     BoundaryPolicy: SSOBoundaryPolicy-Elevated
-    SessionDuration: 3600
+    SessionDuration: PT8H
     Members:
       - UserName: "robin.banks"
