@@ -8,12 +8,13 @@ import { PermissionSet, ManagedPolicyAttachment, CustomerManagedPolicyAttachment
 export interface SsoPermissionsStackProps {
   accountsConfig: any;
   awsTagsConfig: any;
-  groupsCOnfig: any;
+  groupsConfig: any;
   k8sTagsConfig: any;
   ssoConfigData: any;
   userConfigs: any;
   region: string;
   providerConfigName: string;
+  providerConfigStacksets: string;
 }
 
 export class SsoPermissionsStack extends Chart {
@@ -23,12 +24,12 @@ export class SsoPermissionsStack extends Chart {
     const { 
       accountsConfig, 
       awsTagsConfig, 
-      groupsCOnfig, 
+      groupsConfig, 
       k8sTagsConfig, 
       ssoConfigData, 
       userConfigs, 
       region, 
-      providerConfigName 
+      providerConfigName,
     } = props;
 
     // AWS Resource Default Tags
@@ -73,7 +74,7 @@ export class SsoPermissionsStack extends Chart {
               value: user.PhoneNumber,
             }],
             preferredLanguage: user.PreferredLanguage,
-            identityStoreId: ssoConfigData.SSOAdminInstanceARN,
+            identityStoreId: ssoConfigData.SSOAdminIdentityStoreId,
             region: region,
           },
           providerConfigRef: {
@@ -84,7 +85,7 @@ export class SsoPermissionsStack extends Chart {
     }
 
     // Iterate over each file in the boundary-policies directory and create a policy for each
-    const boundaryPoliciesDir = './configs/boundary-policies/';
+    const boundaryPoliciesDir = './configs/policies/boundary/';
     const boundaryPolicyFiles = fs.readdirSync(boundaryPoliciesDir)
 
     for (const boundaryPolicyFile of boundaryPolicyFiles) {
@@ -110,7 +111,7 @@ export class SsoPermissionsStack extends Chart {
     }
 
     // Create IAM Policies for each custom  policy
-    const customPoliciesDir = './configs/custom-policies/';
+    const customPoliciesDir = './configs/policies/custom/';
     const customPolicyFiles = fs.readdirSync(customPoliciesDir);
 
     for (const policyFile of customPolicyFiles) {
@@ -118,7 +119,6 @@ export class SsoPermissionsStack extends Chart {
       awsTags['policytype'] = 'ssocustom';
       const policyContent = fs.readFileSync(`${customPoliciesDir}${policyFile}`, 'utf8');
       
-      console.log(`policy: %s`, policyContent);
       const policyName = policyFile.split('/').pop()?.replace('.json', '').toLowerCase()!;
       new Policy(this, `${policyName}`, {
         metadata: {
@@ -138,7 +138,7 @@ export class SsoPermissionsStack extends Chart {
     }
 
     // Create groups
-    for (const group of groupsCOnfig.Groups) {
+    for (const group of groupsConfig.Groups) {
       const groupResource = new Group(this, `Group-${group.Name}`, {
         metadata: {
           name: group.Name.toLowerCase(),
@@ -148,7 +148,7 @@ export class SsoPermissionsStack extends Chart {
           forProvider: {
             displayName: group.DisplayName,
             description: group.Description,
-            identityStoreId: ssoConfigData.SSOAdminInstanceARN,
+            identityStoreId: ssoConfigData.SSOAdminIdentityStoreId,
             region: region,
           },
           providerConfigRef: {
@@ -161,7 +161,8 @@ export class SsoPermissionsStack extends Chart {
       for (const member of group.Members) {
         new GroupMembership(this, `GroupMembership-${group.Name}-${member.UserName}`, {
           metadata: {
-            annotations: k8sTags
+            annotations: k8sTags,
+            name: `${group.Name}-${member.UserName}`.toLowerCase(),
           },
           spec: {
             forProvider: {
@@ -172,7 +173,7 @@ export class SsoPermissionsStack extends Chart {
                 name: member.UserName,
               },
               region: region,
-              identityStoreId: ssoConfigData.SSOAdminInstanceARN,
+              identityStoreId: ssoConfigData.SSOAdminIdentityStoreId,
             },
             providerConfigRef: {
               name: providerConfigName,
@@ -207,6 +208,7 @@ export class SsoPermissionsStack extends Chart {
         new ManagedPolicyAttachment(this, `ManagedPolicyAttachment-${group.Name}-${managedPolicy}`, {
           metadata: {
             annotations: k8sTags,
+            name: `${group.Name}-${managedPolicy.replace(/_/g, '-')}`.toLowerCase(),
           },
           spec: {
             forProvider: {
@@ -230,6 +232,7 @@ export class SsoPermissionsStack extends Chart {
           new PermissionSetInlinePolicy(this, `InlinePolicy-${group.Name}-${inlinePolicy}`, {
             metadata: {
               annotations: k8sTags,
+              name: `${group.Name}-${inlinePolicy}`.toLowerCase(),
             },
             spec: {
               forProvider: {
@@ -249,6 +252,10 @@ export class SsoPermissionsStack extends Chart {
       // Attach Customer Managed Policies
       for (const customerPolicy of group.CustomerManagedPolicies) {
         new CustomerManagedPolicyAttachment(this, `CustomerManagedPolicyAttachment-${group.Name}-${customerPolicy}`, {
+          metadata: {
+            annotations: k8sTags,
+            name: `${group.Name}-${customerPolicy}`.toLowerCase(),
+          },
           spec: {
             forProvider: {
               permissionSetArnRef: {
@@ -271,6 +278,7 @@ export class SsoPermissionsStack extends Chart {
       new PermissionsBoundaryAttachment(this, `PermissionsBoundary-${group.Name}-${group.BoundaryPolicy}`, {
         metadata: {
           annotations: k8sTags,
+          name: `${group.Name}-${group.BoundaryPolicy}`.toLowerCase(),
         },
         spec: {
           forProvider: {
@@ -301,20 +309,21 @@ export class SsoPermissionsStack extends Chart {
           new AccountAssignment(this, `AccountAssignment-${account.AccountId}-${group.Name}`, {
             metadata: {
               annotations: k8sTags,
+              name: `${account.AccountId}-${group.Name}`.toLowerCase(),
             },
             spec: {
               forProvider: {
-                targetId: account.AccountId,
-                targetType: 'AWS_ACCOUNT',
+                instanceArn: ssoConfigData.SSOAdminInstanceARN,
                 permissionSetArnRef: {
                   name: permissionSet.metadata.name!,
                 },
-                instanceArn: ssoConfigData.SSOAdminInstanceARN,
-                region: region,
                 principalIdFromGroupRef: {
                   name: groupResource.metadata.name!,
                 },
                 principalType: 'GROUP',
+                region: region,
+                targetId: account.AccountId,
+                targetType: 'AWS_ACCOUNT',
               },
               providerConfigRef: {
                 name: providerConfigName,
